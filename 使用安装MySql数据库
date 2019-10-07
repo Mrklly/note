@@ -1,0 +1,122 @@
+
+分为社区版和商业版
+MySQL Community Server 社区版本，开源免费，但不提供官方技术支持。
+MySQL Enterprise Edition 企业版本，需付费，可以试用30天。
+MySQL Cluster 集群版，开源免费。可将几个MySQL Server封装成一个Server。
+MySQL Cluster CGE 高级集群版，需付费。
+MySQL Workbench（GUI TOOL）一款专为MySQL设计的ER/数据库建模工具。它是著名的数据库设计工具DBDesigner4的继任者。MySQL Workbench又分为两个版本，分别是社区版（MySQL Workbench OSS）、商用版（MySQL Workbench SE）。
+
+Ubuntu 16.04 系统
+安装MySQL服务端、客户端、开发库
+sudo   apt-get  install   mysql-server
+sudo   apt-get   isntall  mysql-client
+sudo   apt-get    install   libmysqlclient-dev
+
+配置相关字符集
+character_set_server
+default-character-set
+配置文件
+/etc/mysql/mysql.conf.d/mysqld.cnf
+/etc/mysql/conf.d/mysql.cnf
+
+# * Basic Settings下
+修改 /etc/mysql/mysql.conf.d/mysqld.cnf
+character_set_server=utf8加入
+
+修改 /etc/mysql/conf.d/mysql.cnf
+default-character-set=utf8加入
+
+sudo vim /etc/mysql/conf.d/mysql.cnf
+
+MySQL服务器进程是mysqld
+使用MySQL，首先要启动 MySQL服务器
+启动方法，参考不同操作系统
+Ubuntu 16.04 下启动 MySQL服务器
+sudo   /etc/init.d/mysql   start
+
+MySQL提供很多客户端工具对服务器上的数据进行管理，其中MySQL是一个非常重要的客户端程序，它能够管理几乎MySQL 的每个方面，包括创建、修改和删除表和数据库、设置用户访问权限、浏览和修改服务器配置，以及查询表数据。
+Ubuntu 16.04下启动mysql客户端程序的命令如下：
+ mysql  –u 用户名 –p 密码  –h 服务器名称  –P 端口
+服务器名称默认为本地主机 localhost
+端口默认为3306
+     例：tarena@tedu:~$ mysql -u root -p 
+     密码：123456
+
+MySQL的使用流程小结
+1、启动服务器
+Ubuntu 16.04 下
+sudo   /etc/init.d/mysql   start     开启
+sudo   /etc/init.d/mysql   stop     关闭
+2、连接服务器（客户端）
+Ubuntu 16.04 下
+mysql -u root –p
+输入密码
+3、使用命令操控数据库
+建立、删除库，建立、删除表，查询扽等
+4、断开与服务器的连接（退出客户端即断开）
+mysql>exit;
+mysql>quit;
+mysql>\q;
+
+几个命令：
+显示当前服务器版本
+SELECT VERSION();
+显示当前日期时间
+SELECT NOW();
+显示当前用户
+SELECT USER();
+显示当前数据库
+SELECT DATABASE();
+
+MySQL语句的规范
+关键字与函数名称全部大写
+数据库名称、表名称、字段名称全部小写
+数据库名，表名区分大小写，字段名不区分大小写
+SQL语句必须以分号结尾
+如：
+-- 打印当前数据库服务器的版本信息
+SELECT VERSION(); 
+-- 查找users数据表中的全部记录
+SELECT * FROM users ; 
+-- 更新users数据表中的记录，并且age字段值在原有基础上加5
+UPDATE users SET age = age + 5 ;
+
+
+
+Windows下安装MySQL
+选择、下载合适的MySQL安装包
+https://www.mysql.com
+安装
+MySQL Installer或者压缩包
+安装服务器端和客户端
+mysqld.exe、 mysql
+配置
+使用MySQL配置向导进行配置
+具体步骤参考【COOKBOOK】
+配置过程中主要说明
+选择配置类型：
+Detailed Configuration:详细配置
+Standard Configuration:标准配置
+Windows选项:
+Install As Windows Service：安装成为Windows服务
+Include Bin Directory in Windows PATH：将Bin目录添加到Windows系统环境变量内
+安全选项:
+设置系统超级管理员(root)的密码信息
+
+使用
+启动MySQL服务器
+连接MySQL服务器
+使用
+断开连接
+
+
+
+
+
+
+
+
+
+
+
+

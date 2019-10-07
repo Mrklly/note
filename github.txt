@@ -1,0 +1,32 @@
+
+
+git@github.com:Mrklly/note.git
+We recommend every repository include a README, LICENSE, and .gitignore.
+
+…or create a new repository on the command line
+echo "# note" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:Mrklly/note.git
+git push -u origin master // -u 仅在第一次上传时加上，以后都不需要了。将修改后的项目上传到github远程仓库
+
+…or push an existing repository from the command line
+git remote add origin git@github.com:Mrklly/note.git
+git push -u origin master
+
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+从github主页点击设置进入SSH and GPG keys
+随后点击创建一个新的密钥"New SSH key"，
+随即显示出一个输入key的框。
+但是没有Key呀，要从哪里找呢？找到需要上传的项目文件夹的根目录，右键Git Base Here，如图所示。
+输入命令：ssh-keygen -t rsa -C "876818551@qq.com"
+然后便一直猛击回车，有y/n的时候尽可能去翻译一下句子，而我下面这个y/n就是已经创有文件项目是否覆盖的意思。
+接下来经过回车敲击后可以看到一个代码小图片，那就说明成功了。
+接下来输入命令：cat ~/.ssh/id_rsa.pub
+这个时候他便会弹出你的密钥。这个时候直接复制粘贴到刚刚那个GitHub设置密钥SSH的key上面然后保存即可。
+————————————————
+版权声明：本文为CSDN博主「家辉猫」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_44394753/article/details/91410463

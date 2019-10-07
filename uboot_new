@@ -1,0 +1,71 @@
+正确的配置：
+U-Boot 2010.06 (Jun 20 2018 - 17:18:15)
+
+NAND:  Check SPI Nand Flash Controller v100 ... Found
+SPI Nand ID Table Version 1.4
+SPI Nand : Manufacturer ID[0xef] Device ID[0xab 0x21]
+Block:128KB Page:2KB Chip:256MB*1 OOB:64B ECC:4bit/512 
+256 MiB
+*** Warning - bad CRC or NAND, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+ocy_auto_upgrade check key
+turn_on_light
+Kwd Hit any key to stop autoboot:  0 
+hisilicon # print
+bootargs=mem=192M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 mtdparts=hinand:1M(boot),4M(kernel),110M(rootfs)
+bootcmd=nand read 0x82000000 0x100000 0x400000;bootm 0x82000000
+bootdelay=1
+baudrate=115200
+ethaddr=00:00:23:34:45:66
+ipaddr=192.168.2.222
+serverip=192.168.2.131
+netmask=255.255.255.0
+bootfile="uImage"
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+ver=U-Boot 2010.06 (Jun 20 2018 - 17:18:15)
+mdio_intf=rmii
+hisicpu=hi3516a
+
+Environment size: 454/262140 bytes
+
+
+错误的配置：
+
+Check SPI Nand Flash Controller v100 ... Found
+SPI Nand ID Table Version 2.2
+SPI Nand : Manufacturer ID[0xef] Device ID[0xaa 0x21]
+Block:128KB Page:2KB Chip:128MB*1 OOB:64B ECC:4bit/512 
+ECC provided by Flash Memory Controller
+Nand total size: 128MB
+*** Warning - bad CRC or NAND, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+Hit any key to stop autoboot:  0 
+Wrong Image Format for bootm command
+ERROR: can't get kernel image!
+hisilicon # print
+bootargs=mem=96M console=ttyAMA0,115200
+bootcmd=bootm 0x82000000
+bootdelay=1
+baudrate=115200
+ethaddr=00:00:23:34:45:66
+ipaddr=192.168.1.10
+serverip=192.168.1.2
+netmask=255.255.255.0
+bootfile="uImage"
+stdin=serial
+stdout=serial
+stderr=serial
+verify=n
+ver=U-Boot 2010.06 (Jul 26 2018 - 13:51:53)
+
+Environment size: 294/262140 bytes
+

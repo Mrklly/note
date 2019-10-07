@@ -1,0 +1,30 @@
+第一步：Import the public key used by the package management system
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+第二步：Create a list file for MongoDB
+ubuntu14.04:echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+ubuntu16.04:echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+第三步：Reload local package database.
+sudo apt-get update
+第四步：Install the MongoDB packages
+sudo apt-get install -y mongodb-org  安装最新的版本
+sudo apt-get install -y mongodb-org=3.2.20 mongodb-org-server=3.2.20 mongodb-org-shell=3.2.20 mongodb-org-mongos=3.2.20 mongodb-org-tools=3.2.20  安装mongodb 3.2.20版本
+第五步：检查/var/log/mongodb/mongod.log  里面有没有[initandlisten] waiting for connections on port 27017安装成功
+第六步：卸载
+sudo service mongod stop
+sudo apt-get purge mongodb-org*
+sudo rm -r /var/log/mongodb
+sudo rm -r /var/lib/mongodb
+
+
+MongoDB使用:
+启动:sudo service mongod start
+
+xsj@ubuntu:~$ mongo
+常用操作命令：
+
+show dbs：显示数据库列表
+show collections：显示当前数据库中的集合（类似关系数据库中的表table）
+show users：显示所有用户sh
+use yourDB：切换当前数据库至yourDB
+db.help() ：显示数据库操作命令
+db.yourCollection.help() ：显示集合操作命令，yourCollection是集合名 

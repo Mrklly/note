@@ -1,0 +1,48 @@
+校验核对md5sum /opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin/arm-hisiv300-linux-g++
+
+
+vi tags 多个选项
+:ts filename 
+
+win  cmd 下，netstat -ano  可以查看网络listen
+
+
+
+
+
+
+
+
+
+
+
+
+
+ubuntu 快速显示桌面快捷键 ctrl+win+d
+
+
+ QPA(Qt Platform Abstraction)介绍
+
+From the Qt Project wiki :
+
+“QPA is the platform abstraction layer for Qt 5 and replaces QWS and the platform ports from Qt 4.”QPA (Qt Platform Abstraction) 即Qt使用QWS，Qt5使用QPA。
+
+    Qt4的程序在嵌入式Linux运行时，需要加入参数“-qws”启动Qt窗口系统服务，如“./app -qws”运行app程序。从Qt5.0开始，Qt自身不再单独实现窗口系统，QWS不复存在，取而代之的新机制是QPA(Qt平台抽象)，QPA使得Qt对不同平台的支持变得更加灵活，当需要支持一个新平台时，只需为该平台编写一个QPA插件。
+
+QPA的相关代码在qtbase/src/gui/kernel/qplatform*
+其插件在qtbase/src/plugins/platforms/
+
+Qt5运行时需要通过“-platform”来制定QPA插件，如果不指定就默认使用QPA插件，在QT_QPA_PLATFORM变量制定，比如：
+
+ ./app -platform eglfs
+
+ ./app -platform linuxfb
+
+
+QWS(Qt Window System)介绍
+
+   QWS(Qt Windows System)是QT自行开发的窗口系统，体系结构类似X Windows，是一个C/S结构，由QWS Server在物理设备上显示，由QWS Client实现界面，两者通过socket进行彼此的通讯。在很多嵌入式系统里，QT程序基本上都是用QWS来实现，这样保证程序的可移植性。
+
+   另外在运行QT程序时添加-qws参数，表示这个程序时QWS Server，否则是QWS Client。任何一个基于QT的application都可以做QWS Server。当然QWS Server一定先于QWS Client启动，否则QWS Client将启动失败。在实际应用中一般会指定某个特殊的application做QWS Server，这个application一般还会管理一些其它的系统资源。
+
+   QWS Server管理机制：QWS Server是一个server socket，QWS Client是一个client socket。QWS Client启动时会主动向QWS Server的server socket建立连接。而后就QWS Server通过这个socket传递QWS Command和QWS Event来管理QWS Client。

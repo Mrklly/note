@@ -1,0 +1,392 @@
+交叉编译工具
+1.tar -xvf gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux.tar.xz -C /opt
+
+解压tar.xz文件：先 xz -d xxx.tar.xz 将 xxx.tar.xz解压成 xxx.tar 然后，再用 tar xvf xxx.tar来解包。
+
+2.系统的环境变量
+export PATH=/opt/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux/bin/:$PATH
+
+立即生效
+方法1：
+ 让/etc/profile文件修改后立即生效 ,可以使用如下命令:
+ # .  /etc/profile
+注意: . 和 /etc/profile 有空格
+方法2：
+ 让/etc/profile文件修改后立即生效 ,可以使用如下命令:
+ # source /etc/profile
+
+
+
+在Ubuntu下安装GCC和其他一些Linux系统有点不一样。
+一、安装
+方法一：
+
+sudo apt-get  build-dep  gcc方法二：
+
+sudo apt-get -y install build-essential安装完了可以执行如下的命令来查看版本，
+
+gcc --version输出如下：
+
+gcc(GCC)4.2.3(Ubuntu4.2.3-2ubuntu7)
+Copyright(C)2007FreeSoftwareFoundation,Inc.
+
+
+安装qt-x86
+需先编译ncurses和mysql
+cd /opt/x86-qt-everywhere-opensource-src-5.8.0
+./configure -prefix /usr/local/qt-x86 -I/usr/local/mysql-x86/include/mysql -L/usr/local/mysql-x86/lib/mysql -opensource -confirm-license -Declarative -sql-mysql -no-opengl -make tools
+
+-make tools 可解决No qmlviewer installed
+
+安装OpenGl库：
+1. 建立基本编译环境
+ 首先不可或缺的，就是编译器与基本的函式库，如果系统没有安装的话，请依照下面的方式安装：
+
+$ sudo apt-get install build-essential 
+
+安装OpenGL Library
+接下来要把我们会用到的 Library 装上去，首先安装 OpenGL Library
+ $sudo apt-get install libgl1-mesa-dev
+
+安装OpenGL Utilities
+ OpenGL Utilities 是一组建构于 OpenGL Library 之上的工具组，提供许多很方便的函式，使 OpenGL 更强大且更容易使用。接下来我们安装OpenGL Utilities
+
+$sudo apt-get install libglu1-mesa-dev 
+
+安装OpenGL Utility Toolkit
+ OpenGL Utility Toolkit 是建立在 OpenGL Utilities 上面的工具箱，除了强化了 OpenGL Utilities 的不足之外，也增加了 OpenGL 对于视窗介面支援。
+$sudo apt-get install libglut-dev 
+
+注意在这一步的时候，可能会出现以下情况，shell提示：正在读取软件包列表... 完成正在分析软件包的依赖关系树      正在读取状态信息... 完成      E: 未发现软件包 libglut-dev如果出现上述情况，请输入将上述$sudo apt-get install libglut-dev命令改成$sudo apt-get install freeglut3-dev就行拉， 
+
+
+#./configure -prefix /usr/local/qt-x86 -opensource -confirm-license 
+#cd /opt/x86-qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/sqldrivers/mysql
+#qmake "INCLUDEPATH+=/usr/local/mysql-x86/include/mysql" "LIBS+=-L/usr/local/mysql-#x86/lib/mysql -lmysqlclient_r" mysql.pro
+
+make & make install
+
+安装qt-arm
+需先编译ncurses和mysql
+
+cd /opt/arm-qt-everywhere-opensource-src-5.8.0/qtbase/mkspecs  
+cp -r linux-arm-gnueabi-g++/ linux-arm-gnueabihf-g++  
+vim /linux-arm-gnueabihf-g++/qmake.conf  
+把文件中的arm-linux-gnueabi替换为arm-linux-gnueabihf
+# modifications to g++.conf  
+QMAKE_CC                = arm-linux-gnueabihf-gcc  
+QMAKE_CXX               = arm-linux-gnueabihf-g++  
+QMAKE_LINK              = arm-linux-gnueabihf-g++  
+QMAKE_LINK_SHLIB        = arm-linux-gnueabihf-g++  
+  
+  
+# modifications to linux.conf  
+QMAKE_AR                = arm-linux-gnueabihf-ar cqs  
+QMAKE_OBJCOPY           = arm-linux-gnueabihf-objcopy  
+QMAKE_NM                = arm-linux-gnueabihf-nm -P  
+QMAKE_STRIP             = arm-linux-gnueabihf-strip  
+load(qt_config)  
+
+
+./configure -prefix /usr/local/qt-arm -I/usr/local/mysql/include/mysql -L/usr/local/mysql/lib/mysql -xplatform linux-arm-gnueabihf-g++ -opensource -confirm-license -sql-mysql -no-opengl -qpa linuxfb -nomake examples -no-iconv
+
+#./configure -release -opensource -confirm-license -xplatform linux-arm-gnueabi-g++ -prefix /usr/local/qt5.8-nomake examples -no-opengl -no-iconv -silent -qpa linuxfb -no-gtk -qt-libjpeg -qt-libpng
+由于Qt5以后，删除了嵌入式的QWS（Qt windows system-Qt窗体系统）换成QPA（Qt Platform Abstration -Qt平台抽象），平台插件在qt-everywhere-opensource-src-5.8.0/qtbase/src/plugins/platforms/下面。
+有各种平台的插件，基于frambuffer的插件是lunuxfb这个文件夹下
+
+
+./configure -v 
+-prefix /home/qt-everywhere-opensource-src-5.8.0/Arm-Qt \
+-release \
+-c++std c++1z \
+-c++std c++14 \
+-c++std c++11 \
+-opensource 
+-make libs 
+-xplatform linux-arm-gnueabi-g++  
+-optimized-qmake 
+-pch \
+-no-sql-psql
+-qt-libjpeg 
+-qt-zlib 
+-no-opengl 
+-skip qt3d 
+-skip qtcanvas3d \
+-skip qtpurchasing 
+-no-sse2 
+-no-openssl 
+-no-cups 
+-no-glib 
+-no-iconv       \
+-nomake amples 
+-nomake tools 
+-skip qtvirtualkeyboard \
+-I/home/sfe1012/MrcMoveProject/QtMove/tslib-master/tslib/include \
+-L/home/sfe1012/MrcMoveProject/QtMove/tslib-master/tslib/lib
+
+make -j4
+
+make install
+
+
+
+qtcreator
+方法一:
+apt-get install qtcreator
+libclang-dev : 依赖: libclang-3.6-dev (>= 3.6~rc1) 但是它将不会被安装
+无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系
+安装aptitude 
+sudo apt-get install aptitude 
+
+再安装 
+sudo aptitude install libclang-dev
+下列“新”软件包将被安装。         
+  libclang-3.6-dev{a} libclang-common-3.6-dev{a} libclang-dev 
+  libclang1-3.6{a} libllvm3.6v5{a} libobjc-5-dev{ab} libobjc4{ab} 
+0 个软件包被升级，新安装 7 个， 0 个将被删除， 同时 0 个将不升级。
+需要获取 24.0 MB 的存档。 解包后将要使用 169 MB。
+下列软件包存在未满足的依赖关系：
+ libobjc4 : 依赖: gcc-5-base (= 5.3.1-5ubuntu1) 但是 5.3.1-14ubuntu2 已安装。
+ libobjc-5-dev : 依赖: gcc-5-base (= 5.3.1-5ubuntu1) 但是 5.3.1-14ubuntu2 已安装。
+                 依赖: libgcc-5-dev (= 5.3.1-5ubuntu1) 但是 5.3.1-14ubuntu2 已安装。
+下列动作将解决这些依赖关系：
+
+     保持 下列软件包于其当前版本：
+1)     libclang-3.6-dev [未安装的]
+2)     libclang-dev [未安装的]    
+3)     libclang1-3.6 [未安装的]   
+4)     libobjc-5-dev [未安装的]   
+5)     libobjc4 [未安装的]        
+
+
+
+是否接受该解决方案？[Y/n/q/?] n
+下列动作将解决这些依赖关系：
+
+      降级 下列软件包：                                                   
+1)      cpp-5 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]          
+2)      g++-5 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]          
+3)      gcc-5 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]          
+4)      gcc-5-base [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]     
+5)      libasan2 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]       
+6)      libatomic1 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]     
+7)      libcc1-0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]       
+8)      libcilkrts5 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]    
+9)      libgcc-5-dev [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]   
+10)     libgomp1 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]       
+11)     libitm1 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]        
+12)     liblsan0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]       
+13)     libmpx0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]        
+14)     libquadmath0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]   
+15)     libstdc++-5-dev [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]
+16)     libstdc++6 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]     
+17)     libtsan0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]       
+18)     libubsan0 [5.3.1-14ubuntu2 (now) -> 5.3.1-5ubuntu1 (xenial)]      
+
+
+
+是否接受该解决方案？[Y/n/q/?] y
+下列软件包将被“降级”：
+  cpp-5 g++-5 gcc-5 gcc-5-base libasan2 libatomic1 libcc1-0 libcilkrts5 
+  libgcc-5-dev libgomp1 libitm1 liblsan0 libmpx0 libquadmath0 
+  libstdc++-5-dev libstdc++6 libtsan0 libubsan0 
+下列“新”软件包将被安装。
+  libclang-3.6-dev{a} libclang-common-3.6-dev{a} libclang-dev 
+  libclang1-3.6{a} libllvm3.6v5{a} libobjc-5-dev{a} libobjc4{a} 
+0 个软件包被升级，新安装 7 个， 18 个被降级， 0 个将被删除， 同时 0 个将不升级。
+需要获取 122 MB 的存档。 解包后将要使用 523 MB。
+您要继续吗？[Y/n/?] y
+
+
+
+方法二:源码编译安装
+tar zxvf qt-creator-opensource-src-4.2.0-beta1.tar.gz
+/opt/qt-creator-opensource-src-4.2.0-beta1
+qmake //生成makefile
+make -j4
+make INSTALL_ROOT="/usr/local/qtcreator" install
+
+下载：git clone git://gitorious.org/qt-labs/jom.git Jom
+配置：qmake CONFIG+=release jom.pro
+编译：nmake release
+拷贝bin目录至qt所在目录即可！
+编译工程时遇到如下错误，则说明你缺少Jom工具：
+Could not start process "jom.exe"
+Jom是一个可以充分利用多核的优势，将nmake变成类似make -j的工具
+
+vailable platform plugins are: linuxfb (from /usr/local/qt-x86/plugins), minimal (from /usr/local/qt-x86/plugins), offscreen (from /usr/local/qt-x86/plugins), vnc (from /usr/local/qt-x86/plugins), linuxfb, minimal, offscreen, vnc.
+apt-get install "^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev
+
+x86运行增加参数-platform  linuxfb 
+
+
+
+u-boot 编译
+1、将源码压缩包u-boot-emmc-imx.tar.bz2解压
+tar -jxvf /root/source/u-boot-emmc-imx.tar.bz2
+
+2、进入u-boot-imx 目录
+cd u-boot-imx
+
+3、配置
+如果想生成适用于imx6s
+make distclean
+make mx6solosabresd_config ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+
+4、编译
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+
+编译生成的u-boot.imx
+
+
+内核编译、裁剪
+1、将内核源码linux-imx-emmc-160827.tar.bz2解压
+tar -jxvf /root/source/linux-imx-emmc-160827.tar.bz2
+
+2、内核配置
+如果用户需要自行裁剪或指定内核
+cd linux-imx_share
+make ARCH=arm menuconfig
+
+
+'make menuconfig' requires the ncurses libraries.
+Install ncurses (ncurses-devel) and try again.
+apt-get install libncurses5-dev
+
+3、内核编译
+内核中有一键编译脚本build.sh，查看脚本，可编译生成imx6dl-sabresd-ldo.dtb
+该设备树适用于imx6dl 及imx6s台）
+#./build.sh
+生成的zImage 就是所需的内核镜像文件
+
+/bin/sh: 1: lzop: not found
+make[2]: *** [arch/arm/boot/compressed/piggy.lzo] 错误 1
+make[1]: *** [arch/arm/boot/compressed/vmlinux] 错误 2
+make: *** [zImage] 错误 2
+
+sudo apt-get update
+sudo apt-get install lzop
+
+'make menuconfig' requires the ncurses libraries.
+apt-get install libncurses5-dev
+
+文件系统打包
+cd /root/work/rootfs
+tar jcvf /root/work/image/fsl-image-gui-imx6qsabresd.tar.bz2 ./
+
+root直接登录
+修改rc_mxc.S使其内容如下：
+#!/bin/bash
+
+#
+
+/bin/login -f root     //直接传递root登陆的参数
+
+/*
+
+if grep -sq ttymxc0 /proc/cmdline; then
+
+         /sbin/getty -L ttymxc0 115200 vt100
+
+elif grep -sq ttymxc1 /proc/cmdline; then
+
+         /sbin/getty -L ttymxc1 115200 vt100
+
+elif grep -sq ttymxc2 /proc/cmdline; then
+
+         /sbin/getty -L ttymxc2 115200 vt100
+
+elif grep -sq ttymxc3 /proc/cmdline; then
+
+         /sbin/getty -L ttymxc3 115200 vt100
+
+else
+
+         sleep 100000
+
+*/
+
+fi
+
+这样开机后无需验证即可直接登录root账
+
+建立qt运行环境
+将qt-arm下的lib和plugins拷贝到usr/local/qt目录
+
+
+
+建立运行程序的脚本
+#!/bin/sh
+
+export LD_LIBRARY_PATH=/usr/local/qt/lib:$LD_LIBRARY_PATH
+export QT_QPA_PLATFORM_PLUGIN_PATH=/usr/local/qt/plugins
+export LD_LIBRARY_PATH=/usr/local/qt-arm/plugins/sqldrivers:$LD_LIBRARY_PATH
+export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0 
+#export QT_QPA_FONTDIR=/usr/local/qt/lib/fonts
+
+cd /.app
+
+if [ ! -x ./mastercontroller ] ; then
+    mv ./mastercontrollerbak ./mastercontroller 
+    chmod +x ./mastercontroller
+fi
+
+./mastercontroller -qws &
+
+
+添加启动程序
+在/etc/init.d/rc中增加
+#Uncomment to cause psplash to exit manually, otherwise it exits when it sees a VC switch
+if [ "x$runlevel" != "xS" ] && [ ! -x /etc/rc${runlevel}.d/S??xserver-nodm ]; then
+    if type psplash-write >/dev/null 2>&1; then
+        TMPDIR=/mnt/.psplash psplash-write "QUIT" || true
+    	umount -l /mnt/.psplash
+    fi
+
+    /bin/mastercontroller &
+
+fi
+
+
+修改主机
+在/etc/hostname中修改主机名为ocyhost
+#在/etc/hosts中增加127.0.0.1                                       ocyhost
+
+移植数据库
+参见《mysql的移植.txt》
+
+
+问题1：
+/usr/lib/libstdc++.so.6: version `CXXABI_1.3.8' not found (required by /usr/local/qt/lib/libQt5Core.so.5)
+find / -name  'libstdc++.so.6'
+#locate libstdc++.so.6
+
+/opt/gcc-linaro-arm-linux-gnueabihf-4.9-2014.09_linux/arm-linux-gnueabihf/lib/libstdc++.so.6.0.20拷贝到/usr/lib
+
+ln -s libstdc++.so.6.0.20 libstdc++.so.6
+
+问题2：
+QSqlDatabase: QMYSQL driver not loaded
+QSqlDatabase: available drivers: QSQLITE QMYSQL QMYSQL3
+不能直接找到/plugins/sqldrivers下面的lib,增加export LD_LIBRARY_PATH=/usr/local/qt-arm/plugins/sqldrivers:$LD_LIBRARY_PATH
+依然报错,使用ldd查看依赖关系
+ldd libqsqlmysql.so
+未找到libmysqlclient_r.so.16,建立软连接
+ln -s /usr/local/mysql/lib/mysql/libmysqlclient_r.so.16.0.0 /root/work/rootfs/usr/local/qt-arm/plugins/sqldrivers/libmysqlclient_r.so.16
+
+
+将x86中的ldd脚本文件修改成arm脚本
+#! /bin/bash 修改为
+#! /bin/sh
+
+RTLDLIST="/lib/ld-2.19.so /lib64/ld-linux-x86-64.so.2 /libx32/ld-linux-x32.so.2" 修改为/lib目录中ld-linux-*.so.*对应的库
+RTLDLIST="/lib/ld-2.19.so /lib64/ld-linux-x86-64.so.2 /libx32/ld-linux-x32.so.2"
+
+
+烧录
+烧写开始前请先备份mfgtools烧写工具文件夹下\Profiles\Linux\OS Firmware\files 下的所
+有文件（编译好的镜像在此目录下）
+
+
+系统重新安装包命令例子
+sudo apt-get install --reinstall unity-control-center。

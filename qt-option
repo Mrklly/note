@@ -1,0 +1,166 @@
+Done.
+Running configuration tests (phase 2)...
+Warning: Disabling pkg-config since PKG_CONFIG_LIBDIR is not set and
+the host's .pc files would be used (even if you set PKG_CONFIG_PATH).
+Set this variable to the directory that contains target .pc files
+for pkg-config to function correctly when cross-compiling or
+use -pkg-config to override this test.
+Warning: Disabling pkg-config since PKG_CONFIG_SYSROOT_DIR is not set.
+Set this variable to your sysroot for pkg-config to function correctly when
+cross-compiling or use -pkg-config to override this test.
+Done running configuration tests.
+
+   Configure summary
+
+Building on:   linux-g++ (x86_64, CPU features: mmx sse sse2)
+Building for:  linux-arm-hisiv510-g++ (arm, CPU features: none detected)
+Platform notes:
+
+            - Also available for Linux: linux-clang linux-kcc linux-icc linux-cxx
+        
+Build options:
+  Configuration .......... accessibility audio-backend c++11 c++14 c++1z clock-gettime clock-monotonic compile_examples concurrent cross_compile dbus enable_new_dtags evdev freetype full-config getaddrinfo getifaddrs harfbuzz inotify ipv6ifname large-config largefile linuxfb medium-config minimal-config mremap no-pkg-config pcre png precompile_header qpa qpa reduce_exports release release_tools rpath shared small-config zlib 
+  Build parts ............  libs
+  Mode ................... release; optimized tools
+  Using sanitizer(s)...... none
+  Using C++ standard ..... c++1z
+  Using gold linker....... no
+  Using new DTAGS ........ yes
+  Using PCH .............. yes
+  Using LTCG ............. no
+  Target compiler supports:
+    Neon ................. no
+
+Qt modules and options:
+  Qt D-Bus ............... yes (loading dbus-1 at runtime)
+  Qt Concurrent .......... yes
+  Qt GUI ................. yes
+  Qt Widgets ............. yes
+  Large File ............. yes
+  QML debugging .......... yes
+  Use system proxies ..... no
+
+Support enabled for:
+  Accessibility .......... yes
+  ALSA ................... no
+  CUPS ................... no
+  Evdev .................. yes
+  FontConfig ............. no
+  FreeType ............... yes (bundled copy)
+  Glib ................... no
+  GStreamer .............. no
+  GTK theme .............. no
+  HarfBuzz ............... yes (bundled copy)
+  Iconv .................. no
+  ICU .................... no
+  Image formats: 
+    GIF .................. yes (plugin, using bundled copy)
+    JPEG ................. yes (plugin, using bundled copy)
+    PNG .................. yes (in QtGui, using bundled copy)
+  libinput................ no
+  Logging backends: 
+    journald ............... no
+    syslog   ............... no
+  mtdev .................. no
+  Networking: 
+    getaddrinfo .......... yes
+    getifaddrs ........... yes
+    IPv6 ifname .......... yes
+    libproxy.............. no
+    OpenSSL .............. no
+  NIS .................... no
+  OpenGL / OpenVG: 
+    EGL .................. no
+    OpenGL ............... no
+    OpenVG ............... no
+  PCRE ................... yes (bundled copy)
+  pkg-config ............. no 
+  PulseAudio ............. no
+  QPA backends: 
+    DirectFB ............. no
+    EGLFS ................ no
+      EGLFS i.MX6 ........ no
+      EGLFS i.MX6 Wayland. no
+      EGLFS EGLDevice .... no
+      EGLFS GBM .......... no
+      EGLFS Mali ......... no
+      EGLFS Raspberry Pi . no
+      EGLFS X11 .......... no
+    LinuxFB .............. yes
+    Mir client............ no
+    XCB .................. no
+  Session management ..... yes
+  SQL drivers: 
+    DB2 .................. no
+    InterBase ............ no
+    MySQL ................ no
+    OCI .................. no
+    ODBC ................. no
+    PostgreSQL ........... no
+    SQLite 2 ............. no
+    SQLite ............... qt-qt
+    TDS .................. no
+  tslib .................. no
+  udev ................... no
+  xkbcommon-x11........... no
+  xkbcommon-evdev......... no
+  zlib ................... yes (bundled copy)
+
+
+NOTE: Qt is using double for qreal on this system. This is binary incompatible against Qt 5.1.
+Configure with '-qreal float' to create a build that is binary compatible with 5.1.
+
+NOTE: -optimized-tools is not useful in -release mode.
+
+Info: creating super cache file /host/workspace/code/qt-everywhere-opensource-src-5.6.0/.qmake.super
+
+Qt is now configured for building. Just run 'make'.
+Once everything is built, you must run 'make install'.
+Qt will be installed into /host/workspace/code/qt-everywhere-opensource-src-5.6.0/hisiv300-qt-5.6.0
+
+Prior to reconfiguration, make sure you remove any leftovers from
+the previous build.
+
+
+配置好qt的configure在上
+make 
+make install
+生成qt-arm
+
+
+本文档简要说明将Hi3516A的补丁打到v4.9.37的linux kernel上。
+
+1、从linux开源社区下载v4.9.37版本的内核：
+        1)进入网站：www.kernel.org
+        2)选择HTTP协议资源的https://www.kernel.org/pub/选项,进入子页面
+        3)选择linux/菜单项，进入子页面
+        4)选择kernel/菜单项，进入子页面
+        5)选择v4.x/菜单项，进入子页面
+        6)下载linux-4.9.37.tar.gz（或linux-4.9.37.tar.xz）
+
+2、打补丁
+        1)将下载的 linux-4.9.37.tar.gz 存放到 hi3516a svn osdrv的opensource/kernel目录中
+		2)在linux服务器中进入 hi3516a svn osdrv 的根目录,执行如下命令：
+		cd opensource/kernel
+		tar -zxf linux-4.9.37.tar.gz
+		mv linux-4.9.37 linux-4.9.y
+		cd linux-4.9.y
+		patch -p1 < ../hi3516a_for_linux_v4.9.y.patch
+		cd ../
+		cd ../../
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

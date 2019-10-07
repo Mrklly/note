@@ -1,0 +1,287 @@
+mkdir a b c 可以一次创建3个目录
+mkdir -p a/b/c 可以依次创建a文件夹下的目录
+
+file 文件名    可以查看文件的类型
+
+
+find 查找命令：
+作用：
+  根据文件名查找指定的文件
+格式:
+  find 路径 -name "文件名"
+示例:
+  # 要查找"冰雨.mp3"
+  $ find /home/tarena -name "冰雨.mp3"
+  # 查找用户主目录下有几个a.txt文件
+  $ find ~ -name "a.txt"
+  $ find ~ -name "*.txt"
+  练习查找 "subl" 文件在哪儿里
+  $ find / -name "subl"
+  ctrl + c 可以终止程序执行
+
+hereis 命令：
+作用：
+  查找一个可执行命令的位置
+格式：
+  whereis 命令名
+
+ps -aux <回车> 查看所有进程
+
+date 命令：
+作用：
+  显示时间
+
+uname 命令
+作用：
+   查看操作系统信息(仅UNIX/Linux)
+格式:
+  uname [-a]
+-a 表示显示全部信息
+
+clear (ctrl+l)清屏
+
+安装了git ,
+配置了
+用户名
+sudo git config --global user.name 'kelly'
+邮箱
+sudo git config --global user.email 'kelly@qq.com'
+编辑器
+sudo git config --global core.editor 'vim'
+
+cd .git 为初始化文件夹
+
+在两个版本时可能会出现库不一样的情况，需要更改头文件
+//qt4:  
+#include <QtGui/QApplication>  
+//qt5:  
+#include <QtWidget/QApplication>
+
+ubuntu添加qmake -v出现错误
+出错原因，没有安装qt4库，/usr/lib/x86_64-linux-gnu/qt4
+所以出现错误，
+可以安装手动安装qt库
+sudo apt-get install qt-sdk
+如果自己编译ｑｔ库，那就需要手动修改路径
+cd /usr/lib/x86_64-linux-gnu/qt-default/qtchooser/
+会有一个default.conf配置文件，可以修改默认配置文件为你编译好的ｑｔ库路径
+
+
+有安装opengl，执行命令 $sudo apt-get install libgl1-mesa-dev
+假如安装交叉编译器后使用arm-hisiv300-gcc -v出现没有这个文件或目录，可能是交叉编译器是32位的而
+ubuntu是64位的，需要sudo apt-get install libx32z1-dev
+安装在/etc/profile或/etc/environment是root用户 下的路径在所有用户下有用，在个人用户下需要写在.bashrc下
+
+
+在 Ubuntu 命令行中分别执行以下几个升级命令。
+
+sudo apt-get install libtool
+
+sudo apt-get install autoconf
+
+sudo apt-get install automake
+
+重启tftp服务，使新配置生效
+                 sudo /etc/init.d/tftpd-hpa restart
+
+
+运行kermit -c命令时若报错：
+
+kermit ?SET SPEED has no effect without prior SET LINE
+1
+说明.kermrc配置文件中的设备名有问题，或者是ttyS0、ttyUSB0、ttyUSB1这个具体要看/dev下设备的名称，把串口插上，再拔掉，看里面那个文件在变化，就知道要设置哪个文件名了。
+
+
+
+这里安装了apt-get instll ddd 有图形界面的调试工具，与gdb一样的用法，xxs:~/ddd 
+
+
+sh脚本简记：
+
+#!/bin/sh   符号#!用来告诉系统它后面的参数是用来执行该文件的程序
+#    表示注释    在阅读每个脚本时一定要使用注释，可以长时间不看也不会忘记
+
+#!/bin/sh
+#对变量赋值：
+a=”hello world”
+ #现在打印变量a的内容：
+echo “A is:”
+echo $a               echo输出  $访问变量
+
+
+num=2
+echo “this isthe ${num}nd”
+这将打印： this is the 2nd
+
+myText="hello world"
+muNum=100
+echo $myText    输出hello world
+echo muNum	输出muNum
+当想要访问变量的时候，需要使用$，否则输出的将是纯文本内容
+
+常用命令语法及功能
+echo “sometext”: 将文字内容打印在屏幕上
+ls: 文件列表
+wc –l file  wc -w file  wc -c file: 计算文件行数  计算文件中的单词数  计算文件中的字符数
+cp sourcefile destfile: 文件拷贝
+mv oldname newname : 重命名文件或移动文件
+rm file: 删除文件
+grep ‘pattern’file: 在文件内搜索字符串比如：grep ’searchstring’ file.txt
+cut -b colnumfile: 指定欲显示的文件内容范围，并将它们输出到标准输出设备比如：输出每行第5个到第9个字符cut -b5-9 file.txt千万不要和cat命令混淆，
+这是两个完全不同的命令
+cat file.txt:输出文件内容到标准输出设备（屏幕）上
+file somefile:得到文件类型
+read var:提示用户输入，并将输入赋值给变量
+sort file.txt:对file.txt文件中的行进行排序
+uniq:删除文本文件中出现的行列比如： sort file.txt | uniq
+expr:进行数学运算 add 2 and 3     expr 2 “+” 3
+find:搜索文件比如：根据文件名搜索find . -name filename –print
+tee:将数据输出到标准输出设备(屏幕) 和文件比如：somecommand | tee outfile
+basename file:返回不包含路径的文件名比如： basename /bin/tux将返回 tux
+dirname file:返回文件所在路径比如：dirname /user/bin/tux将返回 /user/bin
+head file:打印文本文件开头几行
+tail file :打印文本文件末尾几行
+sed:sed是一个基本的查找替换程序。可以从标准输入（比如命令管道）读入文本，并将
+结果输出到标准输出（屏幕）。
+比如：将linuxfocus替换为LinuxFocus ：cat text.file | sed ’s/linuxfocus/LinuxFocus/’ >newtext
+fileawk:awk 用来从文本文件中提取字段。缺省地，字段分割符是空格，可以使用-F指定其他分割符。
+catfile.txt |awk -F, ‘{print $1 “,” $3}’这里我们使用，作为字段分割符，同时打印第一个和第三个字段。如果该文件内容如下： Adam Bor,34, IndiaKerryMiller, 22, USA命令输出结果为：Adam Bor, IndiaKerry Miller, USA
+
+概念:  管道, 重定向和backtick
+ 
+这些不是系统命令，但是他们真的很重要。
+
+管道 (|) 将一个命令的输出作为另外一个命令的输入。
+grep “hello”file.txt | wc –l
+在file.txt中搜索包含有”hello”的行并计算其行数。
+在这里grep命令的输出作为wc命令的输入。当然您可以使用多个命令
+重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。
+> 写入文件并覆盖旧文件
+>>加到文件的尾部，保留旧文件内容。
+`反短斜线，使用反短斜线可以将一个命令的输出作为另外一个命令的一个命令行参数。
+命令：
+find . -mtime -1-type f –print
+用来查找过去24小时（-mtime–2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下linux 脚本：
+#!/bin/sh
+tar -zcvflastmod.tar.gz `find . -mtime -1 -type f -print`
+
+流程控制
+１．if
+“if”表达式如果条件为真则执行then后面的部分：
+if ….; then
+….
+elif ….; then
+….
+Else
+….
+fi
+大多数情况下，可以使用测试命令来对条件进行测试。比如可以比较字符串、判断文件是否存在及是否可读等等…
+通常用” [ ]“来表示条件测试。注意这里的空格很重要。要确保方括号的空格。
+[ -f"somefile" ] ：判断是否是一个文件
+[ -x"/bin/ls" ] ：判断/bin/ls是否存在并有可执行权限
+[ -n"$var" ] ：判断$var变量是否有值
+[ "$a"= "$b" ] ：判断$a和$b是否相等
+执行man test可以查看所有测试表达式可以比较和判断的类型。
+直接执行以下脚本：
+#!/bin/sh
+if ["$SHELL" = "/bin/bash" ]; then
+echo “your loginshell is the bash (bourne again shell)”
+else
+echo “your loginshell is not bash but $SHELL”
+Fi
+变量$SHELL包含了登录shell的名称，我们和/bin/bash进行了比较。
+
+熟悉C语言的朋友可能会很喜欢下面的表达式：
+[ -f"/etc/shadow" ] && echo “This computer uses shadow passwors”
+这里 &&就是一个快捷操作符，如果左边的表达式为真则执行右边的语句。
+您也可以认为是逻辑运算中的与操作。上例中表示如果/etc/shadow文件存在则打印”This computer uses shadow passwors”。同样或操作(||)在shell编程中也是可用的。这里有个例子：
+#!/bin/sh
+mailfolder=/var/spool/mail/james
+[ -r"$mailfolder" ]‘ ‘{ echo “Can not read $mailfolder” ; exit 1; }
+echo“$mailfolder has mail from:”
+grep “^From ”$mailfolder
+该脚本首先判断mailfolder是否可读。如果可读则打印该文件中的”From”一行。如果不可读则或操作生效，打印错误信息后脚本退出。这里有个问题，那就是我们必须有两个命令：
+◆打印错误信息
+◆退出程序
+我们使用花括号以匿名函数的形式将两个命令放到一起作为一个命令使用。一般函数将在下文提及。
+不用与和或操作符，我们也可以用if表达式作任何事情，但是使用与或操作符会更便利很多。 
+
+
+
+
+2018.5.22
+BASH 和 DASH 的问题。脚本默认执行的是DASH，而#!/bin/sh默认执行DASH，而DASH下没有相关命令，所以出现命令不能发现的报错
+Debian和Ubuntu中，/bin/sh默认已经指向dash，这是一个不同于bash的shell，它主要是为了执行脚本而出现，而不是交互，  
+它速度更快,但功能相比bash要少很多，语法严格遵守POSIX标准。
+解决
+
+方法一
+
+1、vim scripts/common.sh;  第一行， #!/bin/sh 为 #!/bin/bash
+2、vim sdk.unpack 第一行， #!/bin/sh 为 #!/bin/bash， 也可以正常解压
+
+方法二
+
+# sudo dpkg-reconfigure dash
+
+Using dash as the system shell will improve the system's overall performance. It does not alter the shell presented to interactive users.
+
+Use dash as the default system shell (/bin/sh)?
+
+选择no
+
+备注
+
+两种方式都可以解决问题，但是海思的SDK中很多sh文件，逐个修改很麻烦，用第二种方式修改系统，一劳永逸！
+本机就是用了方法二，如果要改回再次执行sudo dpkg-recongfigure dash选择yes
+
+
+
+
+
+sudo apt-get install ckermit 
+.kermrc配置文件放在了root~下,就可以，放在kelly~下就不能连上kermit
+
+
+ ubuntu14.04以下的版本，16.04用 lib32z1 lib32ncurses5代替，下安装32位库 ia32-libs方法
+
+这两天在整Linux系统,要配置JDK,SDK环境,但是SDK配置使用的时候,提示没有权限.
+
+需要安装32位库来解决,还有就是在修改文件的时候提示不能修改.唉...反正就是没有办法正常操作啦
+
+后来根据查找的情况的是因为没有安装32位库原因导致的就开始查找如何,普遍的方法都是用命令安装.
+
+但是提示文件依赖性限制,不能安装.
+
+后来又根据几篇网络文章终于找到方法.
+
+下面就分享出来,以做记录
+
+1.更改权限,在root账户下操作
+
+sudo -i
+
+cd /etc/apt/sources.list.d
+
+echo "deb http://old-releases.ubuntu.com/ubuntu/ raring main restricted universe multiverse" >ia32-libs-raring.list
+
+//注意是：old-releases.ubuntu.com/ubuntu/，网上很多和次类似，但地址都不对，无法安装，安装后记得删除ia32-libs-raring.list，然后update
+
+2.更细源
+
+apt-get update
+
+3.安装32位库
+apt-get install ia32-libs
+
+4.恢复源
+
+ rm ia32-libs-raring.list
+
+apt-get update
+
+
+
+
+
+
