@@ -135,7 +135,17 @@ unsigned char idata 搜索abc[16];
 while(!a)
 表示：等待a变成1
 
-
+FOR STM8S003K3:
+中断源：
+HALT:进入HALT模式
+IRET:中断程序返回
+JRM:如果l1:0=11(3级）则跳转
+JRNM:如果l1:0<>l1则跳转
+POP CC:CC出栈
+RIM:使能中断（0级设置）
+SIM:禁止中断（3级设置） 
+TRAP:软件中断TRAP
+WFI:等待中断
 
 
 
