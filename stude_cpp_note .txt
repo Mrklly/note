@@ -1,0 +1,9 @@
+string ss;
+getline(cin,ss);
+cin>>ss;
+cout<<ss<<endl;
+
+inline: 关键字修饰的函数，表明这个函数是内联函数，编译器可以尝试着做优化。（递归函数不适合内联）（不单单cpp可以使用，c里也可以使用）
+
+
+

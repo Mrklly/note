@@ -30,3 +30,15 @@ You can initialize this repository with code from a Subversion, Mercurial, or TF
 ————————————————
 版权声明：本文为CSDN博主「家辉猫」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/weixin_44394753/article/details/91410463
+
+
+有时候在项目开发过程中，突然心血来潮想把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，
+原因是.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。
+那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：
+--cached 后面 有个点
+
+git rm -r --cached .
+
+git add .
+
+git commit -m 'update .gitignore'
