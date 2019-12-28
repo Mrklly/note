@@ -8,10 +8,58 @@ win  cmd 下，netstat -ano  可以查看网络listen
 
 
 
+git config --global user.name "Mrklly"
+git config --global user.email "li18370992660@gmail.com"
+git init 
+git status
+git add .
+git status
+git remote add origin git@gitlab.com:Mrklly/mastercontroller.git
+git commit -m "this is a command"
+git push origin master 推送到主支
+git log 可以查看历史
+git clone git@gitlab.com:Mrklly/mastercontroller.git
 
 
+示波器：
+Time division 时间区间
+voltage division 电压区间
+
+1,- vertical position(each channel)     垂直位置（）
+2,- Horizontal position(all channels)	水平位置（）
+3,- Voltage scale|Volts percivision(each channel) 电压浪涌|
+4,- Time base|Seconds perdivision(all channels)	  扫描发生器 		
+5,- Trigger position | level volts(all channels)  触发位置|水平电压
 
 
+wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh
+chmod +x shadowsocks-all.sh
+./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log
+ sudo apt-get update
+
+passwd
+adduser kelly
+usermod -aG sudo kelly
+su kelly
+/etc/init.d/shadowsocks-python restart
+
+
+list of python modules
+python-docx
+
+win + R cmd
+cd /d d: 在 cd 和盘符之间加上 /d
+e: 不用cd指令 直接用 盘符 
+
+Lib->site-packages 可以查看外部modules
+
+requirements.txt可以通过pip命令自动生成和安装
+
+生成requirements.txt文件
+pip freeze > requirements.txt
+
+安装requirements.txt依赖
+pip install -r requirements.txt
 
 
 
